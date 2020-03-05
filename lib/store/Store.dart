@@ -13,7 +13,7 @@ class Store {
 
   Store._();
 
-  static Stones getNewInstance() {
+  static Stones getNewStone() {
     stone = new Stones();
     return stone;
   }
