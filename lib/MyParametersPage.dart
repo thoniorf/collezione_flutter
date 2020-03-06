@@ -1,7 +1,8 @@
-import 'dart:developer';
+import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:collezione/persitance/RetrieveParameters.dart';
+import 'package:collezione/main.dart';
+import 'package:collezione/persistance/RetrieveParameters.dart';
 import 'package:collezione/store/Store.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +36,6 @@ class _MyParametersState extends State<MyParametersPage> {
 
   String returnParamLocalizedLabel(DocumentSnapshot doc) {
     String label = "";
-    Stones stone = Store.getNewStone();
 
     if (doc.data.containsKey("it")) {
       label = doc["it"];
@@ -56,17 +56,23 @@ class _MyParametersState extends State<MyParametersPage> {
   Form buildParametersForm() {
     List<Widget> formInputs = new List();
 
-    List<Widget> formTextInputs = parameters.map((DocumentSnapshot doc) {
-      String docID = doc.documentID;
-      String localizedLabel = returnParamLocalizedLabel(doc);
-      if (localizedLabel.isEmpty) return null;
-      return new TextFormField (
-        textCapitalization: TextCapitalization.sentences,
-        decoration: InputDecoration(labelText: localizedLabel[0].toUpperCase()+localizedLabel.substring(1).toLowerCase()),
-        onSaved: (String value) {
-          Store.stone.put(docID, value);
-        },);
-    }).where((field) => field != null).toList();
+    List<Widget> formTextInputs = parameters
+        .map((DocumentSnapshot doc) {
+          String docID = doc.documentID;
+          String localizedLabel = returnParamLocalizedLabel(doc);
+          if (localizedLabel.isEmpty) return null;
+          return new TextFormField(
+            textCapitalization: TextCapitalization.sentences,
+            decoration: InputDecoration(
+                labelText: localizedLabel[0].toUpperCase() +
+                    localizedLabel.substring(1).toLowerCase()),
+            onSaved: (String value) {
+              Store.stone.put(docID, value);
+            },
+          );
+        })
+        .where((field) => field != null)
+        .toList();
 
     Widget submitButton = RaisedButton(
       child: Text("Invia"),
@@ -76,14 +82,22 @@ class _MyParametersState extends State<MyParametersPage> {
     formInputs.addAll(formTextInputs);
     formInputs.add(submitButton);
 
-
-    return Form(key: _formKey, child: Column(
-      children: formInputs,
-    ));
+    return Form(
+        key: _formKey,
+        child: Column(
+          children: formInputs,
+        ));
   }
 
-  void _saveForm(){
+  void _saveForm() {
     _formKey.currentState.save();
-    log(Store.stone.parameters.toString());
+    Store.saveStone().then((value) => _showHome());
+  }
+
+  void _showHome() {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => MyHomePage(title: 'Collezione')));
   }
 }
