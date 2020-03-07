@@ -38,3 +38,5 @@ lib/generated_plugin_registrant.dart
 
 # Google Services (e.g. APIs or Firebase)
 google-services.json
+
+key.properties
