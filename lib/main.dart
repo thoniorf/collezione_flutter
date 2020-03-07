@@ -1,5 +1,5 @@
 import 'package:collezione/MyCameraPage.dart';
-import 'package:collezione/MyParametersPage.dart';
+import 'package:collezione/store/Store.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -50,6 +50,12 @@ class _MyHomePageState extends State<MyHomePage> {
   void _showCamera() {
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => MyCameraPage()));
+  }
+
+  @override
+  void initState() {
+    Store.getNewStone();
+    super.initState();
   }
 
   @override

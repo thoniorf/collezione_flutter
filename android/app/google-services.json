@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "513663413130",
+    "firebase_url": "https://collection-stone.firebaseio.com",
+    "project_id": "collection-stone",
+    "storage_bucket": "collection-stone.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:513663413130:android:1d662fc24a253202377673",
+        "android_client_info": {
+          "package_name": "it.thoniorf.collezione"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "513663413130-r5eo2ild19urlsq85b465o7rd4f29ddd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "it.thoniorf.collezione",
+            "certificate_hash": "0b91f31009e10f3144169d06963146ecd719b794"
+          }
+        },
+        {
+          "client_id": "513663413130-uid3h0fhosvrk7lfr9ftceh2okcght0d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDT4WDhctD82hBN8ZHL2iQWYMRMXw-vNmI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "513663413130-uid3h0fhosvrk7lfr9ftceh2okcght0d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

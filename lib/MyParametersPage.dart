@@ -8,7 +8,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'Widgets/LoadingWidget.dart';
-import 'model/Stones.dart';
 
 class MyParametersPage extends StatefulWidget {
   @override
