@@ -79,10 +79,24 @@ class _MyHomePageState extends State<MyHomePage> {
       stoneTile.add(new ListTile(title: Text("La collezione é ancora vuota")));
     } else {
       stones.forEach((stone) {
-        stoneTile.add(new ListTile(
+        ListTile tile = new ListTile(
           title: Text(stone["name"]),
           contentPadding: EdgeInsets.symmetric(horizontal: 6.0),
-        ));
+        );
+        Dismissible dismissible = new Dismissible(
+          key: Key(stone.documentID),
+          onDismissed: (direction){
+            setState(() {
+              stones.remove(stone);
+            });
+            Scaffold
+                .of(context)
+                .showSnackBar(SnackBar(content: Text("Eliminato")));
+          },
+          background: Container(color: Colors.red,),
+          child: tile,
+        );
+        stoneTile.add(dismissible);
       });
     }
     return stoneTile;
