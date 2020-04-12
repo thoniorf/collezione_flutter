@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:collezione/main.dart';
 import 'package:collezione/store/Store.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
@@ -56,6 +57,7 @@ class _MyCameraPageState extends State<MyCameraPage> {
               ),
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 Center(
                   child: RaisedButton(
@@ -82,6 +84,11 @@ class _MyCameraPageState extends State<MyCameraPage> {
 
   Future getImage() async {
     var image = await ImagePicker.pickImage(source: ImageSource.camera);
+
+    if(image == null) {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => MyHomePage()));
+    }
 
     setState(() {
       _image = image;
