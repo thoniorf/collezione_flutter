@@ -6,6 +6,7 @@ import 'package:collezione/persistance/RetrieveParameters.dart';
 import 'package:collezione/store/Store.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 
 import 'Widgets/LoadingWidget.dart';
 
@@ -29,7 +30,10 @@ class _MyParametersState extends State<MyParametersPage> {
     if (parameters == null) return LoadingWidget();
 
     return Material(
-      child: buildParametersForm(),
+      child: SafeArea(
+        minimum: EdgeInsets.all(8.0),
+        child: buildParametersForm(),
+      ),
     );
   }
 
@@ -44,7 +48,7 @@ class _MyParametersState extends State<MyParametersPage> {
   }
 
   getParameters() {
-    Future futureRetrieve = RetrieveParameters.getAllParametersDocuments("it");
+    Future futureRetrieve = RetrieveParameters.getAllParametersDocuments();
     futureRetrieve.then((onValue) => {
           setState(() {
             parameters = onValue;
@@ -74,7 +78,8 @@ class _MyParametersState extends State<MyParametersPage> {
         .toList();
 
     Widget submitButton = RaisedButton(
-      child: Text("Invia"),
+      color: Colors.blue,
+      child: Text("Invia",style:TextStyle(color: Colors.white),),
       onPressed: _saveForm,
     );
 

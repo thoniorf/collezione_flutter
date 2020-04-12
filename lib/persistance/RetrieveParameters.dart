@@ -8,7 +8,7 @@ class RetrieveParameters {
     return _instance.collection(_parametersCollectionName);
   }
 
-  static Future<List<DocumentSnapshot>> getAllParametersDocuments(String language) async{
+  static Future<List<DocumentSnapshot>> getAllParametersDocuments() async{
     QuerySnapshot snapshot =  await _getAllParametersQuery().getDocuments();
     return snapshot.documents;
   }

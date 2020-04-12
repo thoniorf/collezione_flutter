@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collezione/MyCameraPage.dart';
+import 'package:collezione/Widgets/LoadingWidget.dart';
+import 'package:collezione/persistance/RetrieveStones.dart';
 import 'package:collezione/store/Store.dart';
 import 'package:flutter/material.dart';
 
@@ -46,6 +49,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  List<DocumentSnapshot> stones;
 
   void _showCamera() {
     Navigator.push(
@@ -54,12 +58,36 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
-    Store.getNewStone();
     super.initState();
+    Store.getNewStone();
+    getStones();
+  }
+
+  void getStones() {
+    Future futureRetrieve =  RetrieveStones.getAllStonesDocuments();
+    futureRetrieve.then((onValue) => {
+      setState(() {
+        stones = onValue;
+      })
+    });
+  }
+
+  List<Widget> buildStoneList() {
+    List<Widget> stoneTile = new List();
+
+    stones.forEach((stone) {
+      stoneTile.add(new ListTile(
+        title: stone["name"],
+        contentPadding: EdgeInsets.symmetric(horizontal: 6.0),
+      ));
+    });
+
+    return stoneTile;
   }
 
   @override
   Widget build(BuildContext context) {
+    if (stones == null) return LoadingWidget();
 
     return Scaffold(
       appBar: AppBar(
@@ -68,28 +96,9 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
 
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Aggiungi alla tua collezione premendo su tasto \'aggiungi\',\n in basso destra.',textAlign: TextAlign.center,
-            ),
-          ],
-        ),
+        child: ListView(
+          children: buildStoneList(),
+        )
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _showCamera,
