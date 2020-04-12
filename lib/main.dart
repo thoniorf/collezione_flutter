@@ -75,13 +75,16 @@ class _MyHomePageState extends State<MyHomePage> {
   List<Widget> buildStoneList() {
     List<Widget> stoneTile = new List();
 
-    stones.forEach((stone) {
-      stoneTile.add(new ListTile(
-        title: stone["name"],
-        contentPadding: EdgeInsets.symmetric(horizontal: 6.0),
-      ));
-    });
-
+    if(stones.isEmpty) {
+      stoneTile.add(new ListTile(title: Text("La collezione é ancora vuota")));
+    } else {
+      stones.forEach((stone) {
+        stoneTile.add(new ListTile(
+          title: Text(stone["name"]),
+          contentPadding: EdgeInsets.symmetric(horizontal: 6.0),
+        ));
+      });
+    }
     return stoneTile;
   }
 
