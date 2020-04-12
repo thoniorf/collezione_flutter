@@ -60,16 +60,16 @@ class _MyCameraPageState extends State<MyCameraPage> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 Center(
-                  child: RaisedButton(
+                  child: IconButton(
                     color: Colors.white,
-                    child: Icon(Icons.clear),
+                    icon: Icon(Icons.clear),
                     onPressed: getImage,
                   ),
                 ),
                 Center(
-                  child: RaisedButton(
+                  child: IconButton(
                     color: Colors.white,
-                    child: Icon(Icons.check),
+                    icon: Icon(Icons.check),
                     onPressed: _showForm,
                   ),
                 )
@@ -86,8 +86,7 @@ class _MyCameraPageState extends State<MyCameraPage> {
     var image = await ImagePicker.pickImage(source: ImageSource.camera);
 
     if(image == null) {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => MyHomePage()));
+      Navigator.of(context).popUntil((route) => route.isFirst);
     }
 
     setState(() {
