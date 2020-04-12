@@ -12,4 +12,8 @@ class RetrieveStones {
     QuerySnapshot snapshot =  await _getAllStonesQuery().getDocuments();
     return snapshot.documents;
   }
+
+  static Future<void> removeStone(String id){
+    return _getAllStonesQuery().document(id).delete();
+  }
 }

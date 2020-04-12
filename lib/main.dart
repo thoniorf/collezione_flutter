@@ -86,9 +86,11 @@ class _MyHomePageState extends State<MyHomePage> {
         Dismissible dismissible = new Dismissible(
           key: Key(stone.documentID),
           onDismissed: (direction){
-            setState(() {
-              stones.remove(stone);
+            RetrieveStones.removeStone(stone.documentID)
+            .then((deletedElement){
+              getStones();
             });
+
             Scaffold
                 .of(context)
                 .showSnackBar(SnackBar(content: Text("Eliminato")));
