@@ -29,8 +29,16 @@ class _MyParametersState extends State<MyParametersPage> {
   Widget build(BuildContext context) {
     if (parameters == null) return LoadingWidget();
 
-    return Material(
-      child: SafeArea(
+    return Scaffold(
+      appBar: AppBar(
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.save),
+            onPressed: _saveForm,
+          )
+        ],
+      ),
+      body: SafeArea(
         minimum: EdgeInsets.all(8.0),
         child: buildParametersForm(),
       ),
@@ -77,14 +85,7 @@ class _MyParametersState extends State<MyParametersPage> {
         .where((field) => field != null)
         .toList();
 
-    Widget submitButton = RaisedButton(
-      color: Colors.blue,
-      child: Text("Invia",style:TextStyle(color: Colors.white),),
-      onPressed: _saveForm,
-    );
-
     formInputs.addAll(formTextInputs);
-    formInputs.add(submitButton);
 
     return Form(
         key: _formKey,
