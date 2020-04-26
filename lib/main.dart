@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collezione/MyCameraPage.dart';
+import 'package:collezione/MyStonePage.dart';
 import 'package:collezione/Widgets/LoadingWidget.dart';
 import 'package:collezione/persistance/RetrieveStones.dart';
 import 'package:collezione/store/Store.dart';
@@ -80,7 +81,10 @@ class _MyHomePageState extends State<MyHomePage> {
     } else {
       stones.forEach((stone) {
         ListTile tile = new ListTile(
-          title: Text(stone["name"]),
+          onTap: (){
+            return this._showStone(stone);
+          },
+          title: Text(stone["name"],style: TextStyle(fontWeight: FontWeight.bold),),
           contentPadding: EdgeInsets.symmetric(horizontal: 6.0),
         );
         Dismissible dismissible = new Dismissible(
@@ -125,5 +129,10 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Icon(Icons.add),
       ),
     );
+  }
+
+  void _showStone(DocumentSnapshot stone) {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => MyStonePage(stone)));
   }
 }
